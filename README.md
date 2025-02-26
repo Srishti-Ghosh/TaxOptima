@@ -14,7 +14,7 @@ An intelligent tax assistant that combines document processing, real-time tax la
 ## Features 🌟
 
 ### Core Functionality
-- Secure login system with MFA
+- Secure login system with MFA: Implements traditional login with email/password or social login with
 - AI-powered document analysis
 - Real-time tax law updates
 - Interactive tax chatbot
