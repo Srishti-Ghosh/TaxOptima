@@ -209,7 +209,7 @@ docker run -p 3000:3000 ai-tax-assistant
 
 ## Support 💬
 
-- Email: support@example.com
+- Email: srishtighoshjsr@gmail.com
 - Issues: GitHub Issues
 - Documentation: `/docs`
 
