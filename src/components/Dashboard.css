@@ -1,0 +1,57 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  padding: 20px;
+  gap: 20px;
+  background: #f5f5f5;
+}
+
+.upload-section {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.chat-section {
+  flex: 1;
+  min-width: 400px;
+  width: 40%;
+}
+
+.upload-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-label {
+  color: #666;
+  cursor: pointer;
+}
+
+.file-list {
+  margin-top: 20px;
+}
+
+.file-item {
+  padding: 10px;
+  background: #f5f5f5;
+  margin: 5px 0;
+  border-radius: 4px;
+} 
