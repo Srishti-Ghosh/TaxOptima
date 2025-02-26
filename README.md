@@ -1,5 +1,5 @@
 
-# AI-Powered Tax Assistant 🤖
+# TaxOptima 🤖
 
 An intelligent tax assistant that combines document processing, real-time tax law updates, and AI-powered advice to simplify tax preparation and compliance.
 
@@ -58,7 +58,7 @@ ENCRYPTION_KEY=your_encryption_key
 
 ### Project Structure
 ```
-ai-tax-assistant/
+TaxOptima/
 ├── src/
 │   ├── components/        # React components
 │   ├── services/         # API services
@@ -150,35 +150,13 @@ npm test
 
 MIT License
 
-Copyright (c) [2024] [Your Name]
+Copyright (c) [2024] [Srishti-Ghosh]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED.
-
-## Changelog 📝
-
-### [1.0.0] - 2024-02-20
-- Initial release
-- Basic authentication
-- Document upload
-- AI analysis
-- Tax chatbot
-
-### [1.1.0] - 2024-02-25
-- Added MFA
-- Enhanced encryption
-- Improved AI responses
-- Real-time tax updates
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
 
 ## Testing 🧪
 
@@ -264,7 +242,6 @@ docker run -p 3000:3000 ai-tax-assistant
 
 ---
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by [Srishti-Ghosh]
 
 Last Updated: February 2024
-```
