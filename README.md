@@ -14,13 +14,13 @@ An intelligent tax assistant that combines document processing, real-time tax la
 ## Features 🌟
 
 ### Core Functionality
-- Secure login system with MFA: Implements traditional login with email/password or social login with
-- AI-powered document analysis
-- Real-time tax law updates
-- Interactive tax chatbot
-- Automatic form filling
-- Document encryption
-- Tax deduction recommendations
+- Secure login system with MFA: Implements traditional login with email/password or social login with Multi-Factor Authentication.
+- AI-powered document analysis: OCR to extract text from scanned receipts, invoices, W-2s, 1099s, etc.
+- Real-time tax law updates: Connects to government database to fetch the latest tax regulations.
+- Interactive tax chatbot: Uses OpenAI to provide real-time assistance for tax-related questions.
+- Automatic form filling: Reads and pre-fills tax forms based on previous filings, pay stubs, and financial documents.
+- Document encryption: Protects sensitive tax data using AES-256 encryption for storage and TLS for transmission.
+- Tax deduction recommendations: Identifies potential deductions based on categorized expenses and tax law updates.
 
 ### Technical Features
 - End-to-end encryption
