@@ -1,132 +1,92 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { encryptData } from '../utils/encryption';
+import authService from '../services/authService';
+import MFAVerification from './MFAVerification';
 import './LoginPage.css';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    twoFactorCode: '',
-  });
-  const [showTwoFactor, setShowTwoFactor] = useState(false);
-  const [loginAttempts, setLoginAttempts] = useState(0);
-  const [isLocked, setIsLocked] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showMFA, setShowMFA] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (isLocked) return;
+    setError('');
+    setLoading(true);
 
     try {
-      // Encrypt sensitive data before transmission
-      const encryptedPassword = await encryptData(formData.password);
+      const response = await authService.login(email, password);
       
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: encryptedPassword,
-          twoFactorCode: formData.twoFactorCode
-        }),
-        credentials: 'include' // For secure cookie handling
-      });
-
-      const data = await response.json();
-
-      if (data.requiresTwoFactor) {
-        setShowTwoFactor(true);
-        return;
-      }
-
-      if (data.success) {
-        onLogin(data.token);
-        navigate('/dashboard');
+      if (response.requiresMFA) {
+        setShowMFA(true);
       } else {
-        setLoginAttempts(prev => {
-          const newAttempts = prev + 1;
-          if (newAttempts >= 3) {
-            setIsLocked(true);
-            setTimeout(() => {
-              setIsLocked(false);
-              setLoginAttempts(0);
-            }, 900000); // 15 minutes lockout
-          }
-          return newAttempts;
-        });
+        navigate('/dashboard');
       }
     } catch (error) {
-      console.error('Login error:', error);
+      setError('Login failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMFAVerification = async (token) => {
+    setError('');
+    setLoading(true);
+
+    try {
+      await authService.verifyMFA(token);
+      navigate('/dashboard');
+    } catch (error) {
+      setError('Invalid MFA code. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-container">
-      <div className="login-box">
-        <h2>Secure Login</h2>
-        {isLocked ? (
-          <div className="error-message">
-            Account temporarily locked. Please try again in 15 minutes.
+      {!showMFA ? (
+        <form onSubmit={handleLogin} className="login-form">
+          <h2>Login</h2>
+          {error && <div className="error-message">{error}</div>}
+          
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                autoComplete="username"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                autoComplete="current-password"
-                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-                title="Password must be at least 8 characters long and include letters, numbers, and special characters"
-              />
-            </div>
-            {showTwoFactor && (
-              <div className="form-group">
-                <label htmlFor="twoFactorCode">2FA Code</label>
-                <input
-                  type="text"
-                  id="twoFactorCode"
-                  name="twoFactorCode"
-                  value={formData.twoFactorCode}
-                  onChange={handleChange}
-                  required
-                  pattern="\d{6}"
-                  title="Please enter the 6-digit code"
-                />
-              </div>
-            )}
-            <button type="submit">Log In</button>
-          </form>
-        )}
-      </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Loading...' : 'Login'}
+          </button>
+        </form>
+      ) : (
+        <MFAVerification
+          onVerify={handleMFAVerification}
+          onCancel={() => setShowMFA(false)}
+          error={error}
+          loading={loading}
+        />
+      )}
     </div>
   );
 };
