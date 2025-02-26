@@ -224,7 +224,6 @@ docker run -p 3000:3000 ai-tax-assistant
 ### Backend
 - Node.js
 - Express.js
-- MongoDB
 - Python
 
 ### AI/ML
