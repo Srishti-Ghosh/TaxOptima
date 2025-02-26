@@ -10,7 +10,6 @@ An intelligent tax assistant that combines document processing, real-time tax la
 - [Security](#security)
 - [Contributing](#contributing)
 - [License](#license)
-- [Changelog](#changelog)
 
 ## Features 🌟
 
